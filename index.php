@@ -1,5 +1,11 @@
 <?php
     include 'include/header.php';
+
+    $msg = Session::get('msg');
+    if (isset($msg)) {
+        echo $msg;
+    }
+    Session::set("msg", NULL);
 ?>
 
     <div class="card ">
@@ -32,7 +38,7 @@
                         <td>Faisal</td>
                         <td>admin@admin.com</td>
                         <td>
-                            <a class="btn btn-info btn-sm " href="editUser.php?id=#">Edit</a>
+                            <a class="btn btn-info btn-sm " href="editUser.php?id=1">Edit</a>
                             <a onclick="return confirm('Are you sure To Delete ?')" 
                                 class="btn btn-danger btn-sm" href="?remove=#">Remove</a>
                         </td>
@@ -41,7 +47,7 @@
             </table>
         </div>
     </div>
-    
+
 <?php
   include 'include/footer.php';
 ?>

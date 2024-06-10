@@ -2,11 +2,11 @@
     include 'include/header.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addUser'])) {
-        $userAdd = $user->addNewUser($_POST);
+        $user_add = $user->addNewUser($_POST);
     }
       
-    if (isset($userAdd)) {
-        echo $userAdd;
+    if (isset($user_add)) {
+        echo $user_add;
     }
 ?>
 
