@@ -1,5 +1,13 @@
 <?php
     include 'include/header.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addUser'])) {
+        $userAdd = $user->addNewUser($_POST);
+    }
+      
+    if (isset($userAdd)) {
+        echo $userAdd;
+    }
 ?>
 
  <div class="card ">
@@ -25,7 +33,7 @@
                 <div class="form-group">
                   <div class="form-group">
                     <label for="sel1">Role</label>
-                    <select class="form-control" name="roleid" id="roleid">
+                    <select class="form-control" name="role_id" id="role_id">
                       <option value="1">Admin</option>
                       <option value="2">User</option>
                     </select>

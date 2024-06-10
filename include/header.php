@@ -1,3 +1,11 @@
+<?php
+
+    spl_autoload_register(function($classes){
+        include 'classes/'.$classes.".php";
+    });
+    
+    $user = new User();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
