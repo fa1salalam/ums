@@ -1,8 +1,7 @@
 
 # User Management System (UMS)
 
-<div class='install-script'>
-  <h3>How to Install</h3>
+How to Install</h3>
   <ul>
  <li>Create a database name (ums)</li>
  <li>Import database file (db/db.sql)</li>
@@ -20,9 +19,3 @@
   <li><a href='https://github.com/a1salalam/'>Author profile</a></li>
 </ul>
 </div>
-
-
-
-
-
-
