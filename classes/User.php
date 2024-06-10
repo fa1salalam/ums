@@ -133,5 +133,13 @@ class User {
         }
     }
 
+    public function selectAllUser()
+    {
+        $sql = "SELECT * FROM users ORDER BY id DESC";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
 }
 ?>

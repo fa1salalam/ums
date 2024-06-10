@@ -33,16 +33,29 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+
+                        $users = $user->selectAllUser();
+
+                        if ($users) {
+                            foreach ($users as  $key => $user) {
+
+                    ?>
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>Faisal</td>
-                        <td>admin@admin.com</td>
+                        <td><?php echo $key+1 ?></td>
+                        <td><?php echo $user->username ?></td>
+                        <td><?php echo $user->email ?></td>
                         <td>
-                            <a class="btn btn-info btn-sm " href="editUser.php?id=1">Edit</a>
+                            <a class="btn btn-info btn-sm " href="editUser.php?id=<?php echo $user->id ?>s">Edit</a>
                             <a onclick="return confirm('Are you sure To Delete ?')" 
-                                class="btn btn-danger btn-sm" href="?remove=#">Remove</a>
+                                class="btn btn-danger btn-sm" href="?remove=<?php echo $user->id ?>">Remove</a>
                         </td>
                     </tr>
+                    <?php } } else { ?>
+                        <tr class="text-center">
+                            <td>No user availabe now!</td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
