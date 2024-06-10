@@ -141,5 +141,24 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function deleteUserById($remove)
+    {
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->bindValue(':id', $remove);
+        $result = $stmt->execute();
+        if ($result) {
+            $msg = '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success !</strong> User account Deleted Successfully !</div>';
+              return $msg;
+        }else{
+            $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error !</strong> Data not Deleted !</div>';
+            return $msg;
+          }
+      }
+
 }
 ?>

@@ -6,6 +6,14 @@
         echo $msg;
     }
     Session::set("msg", NULL);
+
+    if (isset($_GET['remove'])) {
+        $remove = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['remove']);
+        $remove_user = $user->deleteUserById($remove);
+    }
+    if (isset($remove_user)) {
+        echo $remove_user;
+    }
 ?>
 
     <div class="card ">
@@ -29,6 +37,7 @@
                       <th  class="text-center">SL</th>
                       <th  class="text-center">Username</th>
                       <th  class="text-center">Email</th>
+                      <th  class="text-center">Role</th>
                       <th  width='25%' class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -42,13 +51,21 @@
 
                     ?>
                     <tr class="text-center">
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $user->username ?></td>
-                        <td><?php echo $user->email ?></td>
+                        <td><?php echo $key+1; ?></td>
+                        <td><?php echo $user->username; ?></td>
+                        <td><?php echo $user->email; ?></td>
                         <td>
-                            <a class="btn btn-info btn-sm " href="editUser.php?id=<?php echo $user->id ?>s">Edit</a>
+                            <?php if($user->role_id == 1) {
+                                echo 'Admin';
+                            } else {
+                                echo 'User';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-sm " href="editUser.php?id=<?php echo $user->id; ?>">Edit</a>
                             <a onclick="return confirm('Are you sure To Delete ?')" 
-                                class="btn btn-danger btn-sm" href="?remove=<?php echo $user->id ?>">Remove</a>
+                                class="btn btn-danger btn-sm" href="?remove=<?php echo $user->id; ?>">Remove</a>
                         </td>
                     </tr>
                     <?php } } else { ?>
