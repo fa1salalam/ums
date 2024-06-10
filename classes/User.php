@@ -114,7 +114,7 @@ class User {
             $stmt= $this->db->pdo->prepare($sql);
             $stmt->bindValue(':username', $username);
             $stmt->bindValue(':email', $email);
-            $stmt->bindValue(':password', $password);
+            $stmt->bindValue(':password', SHA1($password));
             $stmt->bindValue(':role_id', $role_id);
             $stmt->bindValue(':id', $user_id);
             $result = $stmt->execute();
@@ -158,7 +158,65 @@ class User {
                 <strong>Error !</strong> Data not Deleted !</div>';
             return $msg;
           }
+    }
+
+    public function userLoginAuthorization($email, $password){
+        $password = SHA1($password);
+        $sql = "SELECT * FROM users WHERE email = :email and password = :password LIMIT 1";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':password', $password);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
       }
+
+    public function userLogin($data)
+    {
+        $email = $data['email'];
+        $password = $data['password'];
+  
+  
+        $checkEmail = $this->checkExistEmail($email);
+  
+        if ($email == "" || $password == "" ) {
+          $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error !</strong> Email or Password not be Empty !</div>';
+            return $msg;
+  
+        } elseif (filter_var($email, FILTER_VALIDATE_EMAIL === FALSE)) {
+          $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error !</strong> Invalid email address !</div>';
+            return $msg;
+        } elseif ($checkEmail == FALSE) {
+          $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error !</strong> Email did not Found, use Register email or password please !</div>';
+            return $msg;
+        } else {
+          $log_result = $this->userLoginAuthorization($email, $password);
+
+        }
+        if($log_result) {
+            Session::init();
+            Session::set('login', TRUE);
+            Session::set('id', $log_result->id);
+            Session::set('role_id', $log_result->role_id);
+            Session::set('username', $log_result->username);
+            Session::set('email', $log_result->email);
+            Session::set('log_msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success !</strong> You are Logged In Successfully !</div>');
+            echo "<script>location.href='index.php';</script>";
+  
+        }else{
+            $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error !</strong> Email or Password did not Matched !</div>';
+            return $msg;
+        }
+    }
 
 }
 ?>

@@ -9,6 +9,10 @@
     });
     
     $user = new User();
+
+    if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+        Session::destroy();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

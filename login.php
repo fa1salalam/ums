@@ -1,5 +1,19 @@
 <?php
     include 'include/header.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+      $user_log = $user->userLogin($_POST);
+    }
+
+    if (isset($user_log)) {
+     echo $user_log;
+    }
+
+    $logout = Session::get('logout');
+    if (isset($logout)) {
+    echo $logout;
+  }
+
 ?>
 
 <div class="card ">

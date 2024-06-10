@@ -7,6 +7,12 @@
     }
     Session::set("msg", NULL);
 
+    $log_msg = Session::get('log_msg');
+    if (isset($log_msg)) {
+        echo $log_msg;
+    }
+    Session::set("log_msg", NULL);
+
     if (isset($_GET['remove'])) {
         $remove = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['remove']);
         $remove_user = $user->deleteUserById($remove);
@@ -25,7 +31,12 @@
                     Welcome!
                 <strong>
                 <span class="badge badge-lg badge-secondary text-white">
-                    #User Name#
+                <?php
+                    $username = Session::get('username');
+                    if (isset($username)) {
+                        echo $username;
+                    }
+                ?>
                 </strong>
                 </span>
             </h3>
