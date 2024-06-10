@@ -1,5 +1,6 @@
 <?php
     include 'include/header.php';
+    Session::CheckSession();
 
     $msg = Session::get('msg');
     if (isset($msg)) {
@@ -61,7 +62,10 @@
                             foreach ($users as  $key => $user) {
 
                     ?>
-                    <tr class="text-center">
+                    <tr class="text-center"
+                        <?php if (Session::get("id") == $user->id) {
+                            echo "style='background:#d9edf7' ";
+                        } ?> >
                         <td><?php echo $key+1; ?></td>
                         <td><?php echo $user->username; ?></td>
                         <td><?php echo $user->email; ?></td>
@@ -74,9 +78,11 @@
                             ?>
                         </td>
                         <td>
+                            <?php if(Session::get('id') == $user->id || Session::get('role_id') == 1) { ?>
                             <a class="btn btn-info btn-sm " href="editUser.php?id=<?php echo $user->id; ?>">Edit</a>
                             <a onclick="return confirm('Are you sure To Delete ?')" 
                                 class="btn btn-danger btn-sm" href="?remove=<?php echo $user->id; ?>">Remove</a>
+                            <?php } ?>
                         </td>
                     </tr>
                     <?php } } else { ?>

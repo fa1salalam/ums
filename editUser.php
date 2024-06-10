@@ -1,5 +1,6 @@
 <?php
     include 'include/header.php';
+    Session::CheckSession();
 
     if (isset($_GET['id'])) {
         $user_id = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['id']);  
@@ -43,7 +44,9 @@
                             <?php if($get_user->role_id == 1) { ?>
                                     <option value="1" selected='selected'>Admin</option>
                                     <option value="2">User</option>
-                                <?php } else { ?>
+                            <?php } elseif(Session::get("role_id") == $get_user->role_id) { ?>
+                                    <option value="2" selected='selected'>User</option>
+                                    <?php } else { ?>
                                     <option value="1" >Admin</option>
                                     <option value="2" selected='selected'>User</option>
                                 <?php } ?>

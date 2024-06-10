@@ -1,5 +1,6 @@
 <?php
     include 'include/header.php';
+    Session::CheckLogin();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
       $user_log = $user->userLogin($_POST);

@@ -1,5 +1,6 @@
 <?php
     include 'include/header.php';
+    Session::CheckSession();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addUser'])) {
         $user_add = $user->addNewUser($_POST);
@@ -34,8 +35,12 @@
                   <div class="form-group">
                     <label for="sel1">Role</label>
                     <select class="form-control" name="role_id" id="role_id">
-                      <option value="1">Admin</option>
-                      <option value="2">User</option>
+                      <?php if(Session::get("role_id") == 1) { ?>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
+                      <?php } else { ?>
+                        <option value="2">User</option>
+                      <?php } ?>
                     </select>
                   </div>
                 </div>
