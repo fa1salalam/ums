@@ -3,6 +3,10 @@
 class Session
 {
 
+  /**
+   * Initialize Session
+   * @return session will start
+   */
   public static function init()
   {
     if (version_compare(phpversion(), '5.4.0', '<')) {
@@ -16,11 +20,21 @@ class Session
     }
   }
 
+  /**
+   * Set Session value
+   * @param String or Integer $key and $val a Peramenter summary
+   * @return Just set Seesion key
+   */
   public static function set($key, $val)
   {
     $_SESSION[$key] = $val;
   }
 
+  /**
+   * Get Session Value by key
+   * @param String or Integer $key a peremeter summary
+   * @return Session value or boolean value a value summary
+   */
   public static function get($key)
   {
     if (isset($_SESSION[$key])) {
@@ -30,7 +44,10 @@ class Session
     }
   }
 
-
+  /**
+   * To Destroy Session
+   * @return login page and unset Session values
+   */
   public static function destroy()
   {
     session_destroy();
@@ -38,6 +55,10 @@ class Session
     header('Location:login.php');
   }
 
+  /**
+   * Check Seession value exist or not exist
+   * @return login page and destroy all session 
+   */
   public static function CheckSession()
   {
     if (self::get('login') == FALSE) {
@@ -46,8 +67,12 @@ class Session
     }
   }
 
-  
-  public static function CheckLogin(){
+  /**
+   * Check Login
+   * @return index page if login seession is true
+   */
+  public static function CheckLogin()
+  {
     if (self::get("login") == TRUE) {
       header('Location:index.php');
     }

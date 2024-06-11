@@ -78,6 +78,7 @@
                             ?>
                         </td>
                         <td>
+                            <!-- Check Role id and user id to Edit and Delete option-->
                             <?php if(Session::get('id') == $user->id || Session::get('role_id') == 1) { ?>
                             <a class="btn btn-info btn-sm " href="editUser.php?id=<?php echo $user->id; ?>">Edit</a>
                             <a onclick="return confirm('Are you sure To Delete ?')" 

@@ -6,11 +6,20 @@ class User {
 
     private $db;
 
+    /**
+     * Make database connection with initialize user class
+     * @return database class construct
+     */
     public function __construct()
     {
       $this->db = new Database();
     }
 
+    /**
+     * Check email is duplicate or not
+     * @param string $email A perameter summary 
+     * @return boolean value A return value summary
+     */
     public function checkExistEmail($email)
     {
         $sql = "SELECT email from users WHERE email = :email";
@@ -24,7 +33,12 @@ class User {
         }
 
     }
-
+    
+    /**
+     * Validate and add new user
+     * @param Array <string> or <integer> $data A perameter summary
+     * @return String $msg A value summary 
+     */
     public function addNewUser($data)
     {
         $username = $data['username'];
@@ -71,6 +85,11 @@ class User {
         }
     }
 
+    /**
+     * Find user by id
+     * @param Integer $user_id A Peramenter summary
+     * @return Object or boolean false A value summary
+     */
     public function getUserInfoById($user_id)
     {
         $sql = "SELECT * FROM users WHERE id = :id LIMIT 1";
@@ -86,6 +105,11 @@ class User {
   
     }
 
+    /**
+     * Update user data
+     * @param Integer $user_id and Array <string> or <integer> $data two perameter summary
+     * @return String value as error or Set a Session as a value summary
+     */
     public function updateUser($user_id, $data)
     {
         $username = $data['username'];
@@ -133,6 +157,10 @@ class User {
         }
     }
 
+    /**
+     * Get All user
+     * @return Object as a value summary
+     */
     public function selectAllUser()
     {
         $sql = "SELECT * FROM users ORDER BY id DESC";
@@ -141,6 +169,11 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Delete user by id
+     * @param Integer $remove as A perameter summary
+     * @return String $msg a Value summary
+     */
     public function deleteUserById($remove)
     {
         $sql = "DELETE FROM users WHERE id = :id";
@@ -160,7 +193,13 @@ class User {
           }
     }
 
-    public function userLoginAuthorization($email, $password){
+    /**
+     * User Login Authorization
+     * @param String $email and $password as perameter values summary
+     * @return Object a value summary
+     */
+    public function userLoginAuthorization($email, $password)
+    {
         $password = SHA1($password);
         $sql = "SELECT * FROM users WHERE email = :email and password = :password LIMIT 1";
         $stmt = $this->db->pdo->prepare($sql);
@@ -168,8 +207,13 @@ class User {
         $stmt->bindValue(':password', $password);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
-      }
+    }
 
+    /**
+     * User Login Action
+     * @param Array <string> $data A perameter summary
+     * @return Set Session and String $msg value summary
+     */
     public function userLogin($data)
     {
         $email = $data['email'];

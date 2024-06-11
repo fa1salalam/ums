@@ -41,6 +41,7 @@
                     <div class="form-group">
                         <label for="sel1">Role</label>
                         <select class="form-control" name="role_id" id="role_id">
+                            <!-- Check Role id to get admin and user type options -->
                             <?php if($get_user->role_id == 1) { ?>
                                     <option value="1" selected='selected'>Admin</option>
                                     <option value="2">User</option>

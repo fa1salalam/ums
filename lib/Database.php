@@ -6,6 +6,10 @@ class  Database{
 
   public $pdo;
 
+  /**
+   * Construct Database connection
+   * @return Set database connection a value summary
+   */
   public function __construct()
   {
     if(!isset($this->pdo)) {
